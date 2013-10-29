@@ -1,0 +1,27 @@
+i.icon{
+	display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin: -3px 10px 0 -10px;
+    vertical-align: text-top;
+    width: 30px;
+    background-image:url(../img/payment-logo-sprite.png);
+    background-repeat:no-repeat;
+}
+i.icon.dwolla{
+    background-position:0 0;
+}
+i.icon.creditcard{
+    width: 100px;
+    background-position:0 -60px;
+}
+i.cvv{
+	display: inline-block;
+    height: 44px;
+    line-height: 44px;
+    vertical-align: top;
+    width: 73px;
+    margin-left:20px;
+    background-image:url(../img/credit.png);
+    background-repeat:no-repeat;
+}
