@@ -1,26 +1,35 @@
-var paymentObj, braintree;
+(function(){
+	"use strict";
+	var braintree, paymentOptions, printScreen;
 
-// Payment JS - require jquery
-paymentObj = {
-	$paymentBTN : $('button','#payment_choice'),
-	$paymentForm : $('#form_value_method'),
-	$printBTN : $('#print_screen'),
-	
-	methodClick : function(event){
-		// set value of hidden field
-		event.data.$paymentForm.find('input[name="method"]').val(event.currentTarget.name);
-		// submit the form
-		event.data.$paymentForm.submit();
+	// Payment JS - require jquery
+	paymentOptions = document.getElementById('payment_choice');
+	printScreen = document.getElementById('print_screen');
+
+	if(paymentOptions){
+		paymentOptions = paymentOptions.querySelectorAll('button');
+		for (var i = paymentOptions.length - 1; i >= 0; i--) {
+			paymentOptions[i].addEventListener("click", paymentChoice);
+		}
 	}
-};
-// click payment option buttons
-paymentObj.$paymentBTN.click(paymentObj,paymentObj.methodClick);
-// click print payment button
-paymentObj.$printBTN.click(function(){
-	window.print();
-});
-// Braintree Encrypt
-if(typeof braintreeClientKey != 'undefined' && braintreeClientKey){
-	braintree = Braintree.create(braintreeClientKey);
-	braintree.onSubmitEncryptForm("form_cc");
-}
+
+	if(printScreen){
+		printScreen.addEventListener("click", printMe);
+	}
+
+	// click payment option buttons
+	function paymentChoice(event){
+		document.querySelector('input[name="method"]').value = this.getAttribute('name');
+		document.getElementById('form_value_method').submit();
+	}
+	// click print payment button
+	function printMe(event){
+		window.print();
+	}
+
+	// Braintree Encrypt
+	if(typeof braintreeClientKey != 'undefined' && braintreeClientKey){
+		braintree = Braintree.create(braintreeClientKey);
+		braintree.onSubmitEncryptForm("form_cc");
+	}
+})();
